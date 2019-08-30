@@ -1,0 +1,69 @@
+Script started on Thu 29 Aug 2019 08:32:58 PM EDT
+[?1034hbash-4.2$ gcc doit.c[Kc -o doit
+bash-4.2$ ls
+dir  doit  doit.c  dummy  text.txt  typescript
+bash-4.2$ ./doit
+==>cd dir
+==>ls
+The amount of user CPU time used: 0 milliseconds
+The amount of system CPU time used: 2168000 milliseconds
+The elapsed "wall-clock" time for the command to execute: 3681000 milliseconds
+The number of times the process was preempted involuntarily: 1
+The number of times the process gave up the CPU voluntarily: 3
+The number of major page faults: 0
+The number of minor page faults: 296
+==>cd ..
+==>ls
+dir  doit  doit.c  dummy  text.txt  typescript
+The amount of user CPU time used: 0 milliseconds
+The amount of system CPU time used: 3820000 milliseconds
+The elapsed "wall-clock" time for the command to execute: 2164000 milliseconds
+The number of times the process was preempted involuntarily: 2
+The number of times the process gave up the CPU voluntarily: 5
+The number of major page faults: 0
+The number of minor page faults: 605
+==>mk dir      wc text.txt
+ 2  5 27 text.txt
+The amount of user CPU time used: 573000 milliseconds
+The amount of system CPU time used: 4394000 milliseconds
+The elapsed "wall-clock" time for the command to execute: 4697000 milliseconds
+The number of times the process was preempted involuntarily: 3
+The number of times the process gave up the CPU voluntarily: 10
+The number of major page faults: 0
+The number of minor page faults: 843
+==>set prompt = ++>
+++>exit    cd dir
+++>ls
+The amount of user CPU time used: 573000 milliseconds
+The amount of system CPU time used: 5840000 milliseconds
+The elapsed "wall-clock" time for the command to execute: 2234000 milliseconds
+The number of times the process was preempted involuntarily: 4
+The number of times the process gave up the CPU voluntarily: 12
+The number of major page faults: 0
+The number of minor page faults: 1139
+++>cd ..
+++>exit
+bash-4.2$ doit[K[K[K[K./doit wc text.txt
+ 2  5 27 text.txt
+The amount of user CPU time used: 1060000 milliseconds
+The amount of system CPU time used: 0 milliseconds
+The elapsed "wall-clock" time for the command to execute: 1490000 milliseconds
+The number of times the process was preempted involuntarily: 1
+The number of times the process gave up the CPU voluntarily: 2
+The number of major page faults: 0
+The number of minor page faults: 238
+bash-4.2$ ./doit
+==>exit
+bash-4.2$ ./dpo[K[Koit ls
+dir  doit  doit.c  dummy  text.txt  typescript
+The amount of user CPU time used: 0 milliseconds
+The amount of system CPU time used: 1331000 milliseconds
+The elapsed "wall-clock" time for the command to execute: 1734000 milliseconds
+The number of times the process was preempted involuntarily: 1
+The number of times the process gave up the CPU voluntarily: 2
+The number of major page faults: 0
+The number of minor page faults: 310
+bash-4.2$ exit
+exit
+
+Script done on Thu 29 Aug 2019 08:35:48 PM EDT
