@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 		inputVal=atoi(args[0]);
 		threadIndex=atoi(args[1]);
 		//printf("size:%d\n",size);
-		if(size!=2 || inputVal<0 || ptr==NULL){// send termination message, and receive messages
+		if(size!=2 || inputVal<0 || threadIndex<1 || threadIndex>numThreads || ptr==NULL){// send termination message, and receive messages
 
 			for(i=1;i<=numThreads;i++){// send termination message to each thread
 				msgToSend.iFrom=0;
@@ -121,6 +121,20 @@ int main(int argc, char* argv[])
 		SendMsg(threadIndex,&msgToSend);
 
 	}
+
+	for(i=0;i<numThreads;i++){ // wait for each thread to complete
+		pthread_join(threadArr[i+1],NULL);
+	}
+
+	for(i=0;i<=numThreads;i++){ // destroy all semaphores
+		sem_destroy(&psemArr[i]);
+		sem_destroy(&csemArr[i]);
+	}
+
+//	free(psemArr);
+//	free(csemArr);
+//	free(threadArr);
+//	free(mailBoxes);
 
 }
 
@@ -153,7 +167,7 @@ void* adder(void* arg){
 	struct msg msgToRecv;
 	int index;
 	index = (int)(intptr_t)arg;
-	printf("index: %d\n",index);
+	//printf("index: %d\n",index);
 
 	while(1){
 		RecvMsg(index,&msgToRecv);
@@ -179,6 +193,6 @@ void* adder(void* arg){
 		//printf("In thread %d, val: %d and cnt: %d\n",index,result,cnt);
 
 	}
-//	printf("The result from thread %d is %d from %d operations.",index,result,msgToRecv.cnt);
+	//	printf("The result from thread %d is %d from %d operations.",index,result,msgToRecv.cnt);
 }
 
