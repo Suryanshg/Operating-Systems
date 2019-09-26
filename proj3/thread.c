@@ -48,7 +48,9 @@ int main(int argc, char* argv[])
 
 	numThreads = atoi(argv[1]);
 
-
+	if(numThreads>MAXTHREAD){
+   		numThreads=MAXTHREAD;
+	}
 
 	//	if (numThreads > MAXTHREAD) {
 	//		printf("Number of threads entered were too high!\n");
