@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 	char* ptr;
 	struct msg msgToSend;
 
-	if (argc < 2) {
+	if (argc != 2) {
 		printf("The number of arguments should be 2\n");
 		exit(1);
 	}
