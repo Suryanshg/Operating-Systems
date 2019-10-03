@@ -12,16 +12,13 @@ using namespace std;
 #include <stdlib.h>
 #include <fcntl.h>
 #include <ctype.h>
+#include <pthread.h>
 #define BUFSIZE 1024
 
 void printStats();
 int numBadFiles=0, numDir=0, numRegFiles=0, numSpecFiles=0, bytesReg=0, numTextFiles=0, bytesText=0;
 
 
-//typedef struct {
-//    mode_t    st_mode;    /* protection */
-//    off_t     st_size;    /* total size, in bytes */
-//} statsInfo;
 
 int main(int argc, char *argv[])
 {
@@ -29,9 +26,7 @@ int main(int argc, char *argv[])
 	char fileName[100];
 	int fdIn, cnt, i, statResult;
 	struct stat statsInfo;
-	//	if (argc < 2) {
-	//		fdIn = 0;  /* just read from stdin */
-	//	}
+	bool isText;
 
 	while(1){
 
@@ -52,12 +47,9 @@ int main(int argc, char *argv[])
 		else if(S_ISREG(statsInfo.st_mode)){ // if regular file
 			numRegFiles++;
 			bytesReg+=statsInfo.st_size;
-			bool isText=true;
-			// check for text file
-			while ((cnt = read(fdIn, buf, 1)) > 0) {
-				//cout<<buf;
-				//write(1, buf, cnt);
-				if(!(isprint(cnt)) && !(isspace(cnt))){
+			isText=true;
+			while ((cnt = read(fdIn, buf, 1)) > 0) { // check for text file
+				if(!(isprint(cnt)) || !(isspace(cnt))){
 					isText=false;
 					break;
 				}
@@ -75,18 +67,6 @@ int main(int argc, char *argv[])
 		if (fdIn > 0){
 			close(fdIn);
 		}
-
-
-
-
-
-
-		//		if ((fdIn = open(fileName, O_RDONLY)) < 0) {
-		//			//cerr << "file open\n";
-		//			exit(1);
-		//		}
-
-		// copy input to stdout
 
 	}
 
