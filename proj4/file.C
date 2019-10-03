@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 			break;
 		}
 		if ((fdIn = open(fileName, O_RDONLY)) < 0){ // EOF
-			exit(1);
+			break;
 		}
 		statResult=stat(fileName,&statsInfo);
 		if(statResult<0){ // if bad file
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 			while ((cnt = read(fdIn, buf, 1)) > 0) {
 				//cout<<buf;
 				//write(1, buf, cnt);
-				if(!(isprint(cnt)) || !(isspace(cnt))){
+				if(!(isprint(cnt)) && !(isspace(cnt))){
 					isText=false;
 					break;
 				}
@@ -95,5 +95,12 @@ int main(int argc, char *argv[])
 }
 
 void printStats(){
+	cout<<"Bad Files: "<<numBadFiles<<"\n";
+	cout<<"Directories: "<<numDir<<"\n";
+	cout<<"Regular Files: "<<numRegFiles<<"\n";
+	cout<<"Special Files: "<<numSpecFiles<<"\n";
+	cout<<"Regular File Bytes: "<<bytesReg<<"\n";
+	cout<<"Text Files: "<<numTextFiles<<"\n";
+	cout<<"Text File Bytes: "<<bytesText<<"\n";
 
 }
