@@ -41,14 +41,16 @@ int main(int argc, char* argv[])
 	char* ptr;
 	struct msg msgToSend;
 
-	if (argc < 2) {
+	if (argc != 2) {
 		printf("The number of arguments should be 2\n");
 		exit(1);
 	}
 
 	numThreads = atoi(argv[1]);
 
-
+	if(numThreads>MAXTHREAD){
+   		numThreads=MAXTHREAD;
+	}
 
 	//	if (numThreads > MAXTHREAD) {
 	//		printf("Number of threads entered were too high!\n");
