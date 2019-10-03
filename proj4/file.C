@@ -17,6 +17,7 @@ using namespace std;
 void printStats();
 int numBadFiles=0, numDir=0, numRegFiles=0, numSpecFiles=0, bytesReg=0, numTextFiles=0, bytesText=0;
 
+
 //typedef struct {
 //    mode_t    st_mode;    /* protection */
 //    off_t     st_size;    /* total size, in bytes */
@@ -51,14 +52,20 @@ int main(int argc, char *argv[])
 		else if(S_ISREG(statsInfo.st_mode)){ // if regular file
 			numRegFiles++;
 			bytesReg+=statsInfo.st_size;
-
+			bool isText=true;
 			// check for text file
 			while ((cnt = read(fdIn, buf, 1)) > 0) {
 				//cout<<buf;
 				//write(1, buf, cnt);
-
+				if(!(isprint(cnt)) || !(isspace(cnt))){
+					isText=false;
+					break;
+				}
 			}
-			cout<<"Hello";
+			if(isText){
+				numTextFiles++;
+				bytesText+=statsInfo.st_size;
+			}
 
 		}
 		else{ // it's a special file
