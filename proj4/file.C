@@ -11,7 +11,8 @@ using namespace std;
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <ctype.h>
+#include <cctype>
+#include <cstring>
 #include <pthread.h>
 #define BUFSIZE 1024
 
@@ -48,8 +49,9 @@ int main(int argc, char *argv[])
 			numRegFiles++;
 			bytesReg+=statsInfo.st_size;
 			isText=true;
+			cout<<fdIn;
 			while ((cnt = read(fdIn, buf, 1)) > 0) { // check for text file
-				if(!(isprint(cnt)) || !(isspace(cnt))){
+				if(!(isprint(buf[0])) && !(isspace(buf[0]))){
 					isText=false;
 					break;
 				}
