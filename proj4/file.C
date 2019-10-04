@@ -17,63 +17,40 @@ using namespace std;
 #define BUFSIZE 1024
 
 void printStats();
+void processFile(char file[],struct stat statsInfo, int fd);
 int numBadFiles=0, numDir=0, numRegFiles=0, numSpecFiles=0, bytesReg=0, numTextFiles=0, bytesText=0;
 
 
 
 int main(int argc, char *argv[])
 {
-	char buf[BUFSIZE];
+	int fdIn;
 	char fileName[100];
-	int fdIn, cnt, i, statResult;
 	struct stat statsInfo;
-	bool isText;
 
-	while(1){
+	if(argc==1){// serial architecture version
+		while(1){
 
-		cin.getline(fileName,100); // get the file's name
-		if(fileName==NULL){
-			break;
-		}
-		if ((fdIn = open(fileName, O_RDONLY)) < 0){ // EOF
-			break;
-		}
-		statResult=stat(fileName,&statsInfo);
-		if(statResult<0){ // if bad file
-			numBadFiles++;
-		}
-		else if(S_ISDIR(statsInfo.st_mode)){ // if directory
-			numDir++;
-		}
-		else if(S_ISREG(statsInfo.st_mode)){ // if regular file
-			numRegFiles++;
-			bytesReg+=statsInfo.st_size;
-			isText=true;
-			cout<<fdIn;
-			while ((cnt = read(fdIn, buf, 1)) > 0) { // check for text file
-				if(!(isprint(buf[0])) && !(isspace(buf[0]))){
-					isText=false;
-					break;
-				}
+			cin.getline(fileName,100); // get the file's name
+			if(fileName==NULL){
+				break;
 			}
-			if(isText){
-				numTextFiles++;
-				bytesText+=statsInfo.st_size;
+			if ((fdIn = open(fileName, O_RDONLY)) < 0){ // EOF
+				break;
 			}
+			else{
+				processFile(fileName,statsInfo,fdIn); // process the file and copy stats into statsInfo
+			}
+		}
 
-		}
-		else{ // it's a special file
-			numSpecFiles++;
-		}
-
-		if (fdIn > 0){
-			close(fdIn);
-		}
+		printStats();
 
 	}
-
-	printStats();
+	else if(argc>1){
+		cout<<"MultiThreaded Version\n";
+	}
 	return 0;
+
 }
 
 void printStats(){
@@ -84,5 +61,42 @@ void printStats(){
 	cout<<"Regular File Bytes: "<<bytesReg<<"\n";
 	cout<<"Text Files: "<<numTextFiles<<"\n";
 	cout<<"Text File Bytes: "<<bytesText<<"\n";
-
 }
+
+void processFile(char file[], struct stat statsInfo, int fd){
+	int  cnt, statResult;
+	bool isText;
+	char buf[BUFSIZE];
+
+	statResult=stat(file,&statsInfo);
+	if(statResult<0){ // if bad file
+		numBadFiles++;
+	}
+	else if(S_ISDIR(statsInfo.st_mode)){ // if directory
+		numDir++;
+	}
+	else if(S_ISREG(statsInfo.st_mode)){ // if regular file
+		numRegFiles++;
+		bytesReg+=statsInfo.st_size;
+		isText=true;
+		while ((cnt = read(fd, buf, 1)) > 0) { // check for text file
+			if(!(isprint(buf[0])) && !(isspace(buf[0]))){
+				isText=false;
+				break;
+			}
+		}
+		if(isText){
+			numTextFiles++;
+			bytesText+=statsInfo.st_size;
+		}
+
+	}
+	else{ // it's a special file
+		numSpecFiles++;
+	}
+
+	if (fd > 0){
+		close(fd);
+	}
+}
+
