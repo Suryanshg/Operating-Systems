@@ -15,6 +15,8 @@ using namespace std;
 #include <cstring>
 #include <pthread.h>
 #include <semaphore.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 #define BUFSIZE 1024
 
 void printStats();
@@ -28,6 +30,7 @@ long int bytesReg = 0, bytesText = 0;
 sem_t semArr[5]; // 0-statsInfo, 1-Bad, 2-Dir, 3-Reg/Text, 4-Spec
 int numThreadsRunning = 0; //counter
 int oldestThread = 1; //tracking oldest thread
+double startTime;
 
 
 int main(int argc, char *argv[]) {
@@ -40,6 +43,9 @@ int main(int argc, char *argv[]) {
 			}
 
 			else {
+				struct timeval s_time; //start time of the process
+				gettimeofday(&s_time,NULL);
+				startTime=(s_time.tv_sec) + (s_time.tv_usec * 0.000001);
 				processFile1(fileName);
 			}
 		}
@@ -66,6 +72,10 @@ int main(int argc, char *argv[]) {
 				}
 				x++;
 			}
+
+			struct timeval s_time; //start time of the process
+			gettimeofday(&s_time,NULL);
+			startTime=(s_time.tv_sec) + (s_time.tv_usec * 0.000001);
 
 			int curFile = 0;
 			while (1) {
@@ -101,6 +111,16 @@ int main(int argc, char *argv[]) {
 }
 
 void printStats() {
+	struct rusage usage;
+	struct timeval e_time, utime, stime; // for Wall Clock time, user time and sys time respectively
+	gettimeofday(&e_time,NULL);
+	double endTime=(e_time.tv_sec)+(e_time.tv_usec * .000001);
+	double timeElapsed= endTime-startTime; // elapsed wall-clock time
+	getrusage(RUSAGE_SELF,&usage);
+	utime= usage.ru_utime;
+	stime= usage.ru_stime;
+	double userTime = (utime.tv_sec) + (utime.tv_usec * .000001); // user CPU time
+	double sysTime = (stime.tv_sec ) + (stime.tv_usec * .000001); // system CPU time
 	cout << "Bad Files: " << numBadFiles << "\n";
 	cout << "Directories: " << numDir << "\n";
 	cout << "Regular Files: " << numRegFiles << "\n";
@@ -108,6 +128,10 @@ void printStats() {
 	cout << "Regular File Bytes: " << bytesReg << "\n";
 	cout << "Text Files: " << numTextFiles << "\n";
 	cout << "Text File Bytes: " << bytesText << "\n";
+	cout << "************* Time Statistics **************\n";
+	cout << "Wall clock time: "<<timeElapsed<< " seconds\n";
+	cout << "System Time: " <<sysTime<<" seconds\n";
+	cout << "User Time: " <<userTime<<" seconds\n";
 }
 
 void* processFile(void* arg) { // for multi architecture version
@@ -228,4 +252,9 @@ void processFile1(char file[]) { // for serial architecture version
 	}
 
 }
+
+
+
+
+
 
