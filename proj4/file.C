@@ -28,7 +28,7 @@ long int bytesReg = 0, bytesText = 0;
 sem_t semArr[5]; // 0-statsInfo, 1-Bad, 2-Dir, 3-Reg/Text, 4-Spec
 int numThreadsRunning = 0; //counter
 int oldestThread = 1; //tracking oldest thread
-bool firstTime = true;
+
 
 int main(int argc, char *argv[]) {
 	char fileName[100];
