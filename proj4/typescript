@@ -1,0 +1,178 @@
+Script started on Thu 10 Oct 2019 12:04:56 PM EDT
+[?1034hbash-4.2$ g++ -o file file.C -lpthread
+bash-4.2$ ls -1d * | ./file
+Bad Files: 0
+Directories: 0
+Regular Files: 6
+Special Files: 0
+Regular File Bytes: 58784
+Text Files: 4
+Text File Bytes: 6243
+************* Time Statistics **************
+Wall clock time: 0.00153303 seconds
+System Time: 0.004709 seconds
+User Time: 0.000784 seconds
+bash-4.2$ ls -1d * | ./file[C[C[1@/[1@d[1@e[1@v[1@/[C[C[C[C[C[C[C[C[C[C
+Error opening file:/dev/core
+Bad Files: 0
+Directories: 18
+Regular Files: 1
+Special Files: 138
+Regular File Bytes: 140737486266368
+Text Files: 0
+Text File Bytes: 0
+************* Time Statistics **************
+Wall clock time: 3.09944e-06 seconds
+System Time: 0.001765 seconds
+User Time: 0.001436 seconds
+bash-4.2$ ls -1d /dev/* | ./file[1P[1P[1P[1P[1P[C[C[C[C[C[C[C[C[C[C thread 2
+Multi-Threaded Version
+DONE
+Bad Files: 0
+Directories: 0
+Regular Files: 6
+Special Files: 0
+Regular File Bytes: 58784
+Text Files: 4
+Text File Bytes: 6243
+************* Time Statistics **************
+Wall clock time: 0.00813913 seconds
+System Time: 0.002596 seconds
+User Time: 0.003462 seconds
+bash-4.2$ ls -1d * | ./file thread 2[K4
+Multi-Threaded Version
+DONE
+Bad Files: 0
+Directories: 0
+Regular Files: 6
+Special Files: 0
+Regular File Bytes: 58784
+Text Files: 4
+Text File Bytes: 6243
+************* Time Statistics **************
+Wall clock time: 0.00691009 seconds
+System Time: 0.002455 seconds
+User Time: 0.003683 seconds
+bash-4.2$ ls -1d * | ./file thread 4[K10
+Multi-Threaded Version
+DONE
+Bad Files: 0
+Directories: 0
+Regular Files: 6
+Special Files: 0
+Regular File Bytes: 58784
+Text Files: 4
+Text File Bytes: 6243
+************* Time Statistics **************
+Wall clock time: 0.00637412 seconds
+System Time: 0.003602 seconds
+User Time: 0.002401 seconds
+bash-4.2$ ls -1d * | ./file thread 10[C[1@/[1@d[1@e[1@v[1@/
+Multi-Threaded Version
+Error opening file:/dev/core
+DONE
+Bad Files: 0
+Directories: 18
+Regular Files: 1
+Special Files: 138
+Regular File Bytes: 140737486266368
+Text Files: 0
+Text File Bytes: 0
+************* Time Statistics **************
+Wall clock time: 0.00504494 seconds
+System Time: 0.014757 seconds
+User Time: 0.004427 seconds
+bash-4.2$ ls -1d /dev/* | ./file thread 10[K[K2
+Multi-Threaded Version
+Error opening file:/dev/core
+DONE
+Bad Files: 0
+Directories: 18
+Regular Files: 1
+Special Files: 138
+Regular File Bytes: 140737486266368
+Text Files: 0
+Text File Bytes: 0
+************* Time Statistics **************
+Wall clock time: 0.00349116 seconds
+System Time: 0.008282 seconds
+User Time: 0 seconds
+bash-4.2$ ls -1d /dev/* | ./file thread 2[K1
+Multi-Threaded Version
+Error opening file:/dev/core
+DONE
+Bad Files: 0
+Directories: 18
+Regular Files: 1
+Special Files: 138
+Regular File Bytes: 140737486266368
+Text Files: 0
+Text File Bytes: 0
+************* Time Statistics **************
+Wall clock time: 0.00752306 seconds
+System Time: 0.009809 seconds
+User Time: 0 seconds
+bash-4.2$ ls -1d /dev/* | ./file thread 1[K4
+Multi-Threaded Version
+Error opening file:/dev/core
+DONE
+Bad Files: 0
+Directories: 18
+Regular Files: 1
+Special Files: 138
+Regular File Bytes: 140737486266368
+Text Files: 0
+Text File Bytes: 0
+************* Time Statistics **************
+Wall clock time: 0.00516391 seconds
+System Time: 0.008809 seconds
+User Time: 0.003523 seconds
+bash-4.2$ ls -1d /dev/* | ./file thread 4[K15
+Multi-Threaded Version
+Error opening file:/dev/core
+DONE
+Bad Files: 0
+Directories: 18
+Regular Files: 1
+Special Files: 138
+Regular File Bytes: 140737486266368
+Text Files: 0
+Text File Bytes: 0
+************* Time Statistics **************
+Wall clock time: 0.00330615 seconds
+System Time: 0.017592 seconds
+User Time: 0 seconds
+bash-4.2$ ls -1d /dev/* | ./file thread 15[K2
+Multi-Threaded Version
+Error opening file:/dev/core
+DONE
+Bad Files: 0
+Directories: 18
+Regular Files: 1
+Special Files: 138
+Regular File Bytes: 140737486266368
+Text Files: 0
+Text File Bytes: 0
+************* Time Statistics **************
+Wall clock time: 0.00505209 seconds
+System Time: 0.017896 seconds
+User Time: 0.001626 seconds
+bash-4.2$ ls -1d /dev/* | ./file thread 12[K[K6
+Multi-Threaded Version
+Error opening file:/dev/core
+DONE
+Bad Files: 0
+Directories: 18
+Regular Files: 1
+Special Files: 138
+Regular File Bytes: 140737486266368
+Text Files: 0
+Text File Bytes: 0
+************* Time Statistics **************
+Wall clock time: 0.0025661 seconds
+System Time: 0.008345 seconds
+User Time: 0 seconds
+bash-4.2$ script[K[K[K[K[K[Kexo[Kit
+exit
+
+Script done on Thu 10 Oct 2019 12:07:17 PM EDT
